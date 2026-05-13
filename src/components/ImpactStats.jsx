@@ -25,16 +25,16 @@ export default function ImpactStats() {
             The Power of Your <span className="gold-text">Generosity</span>
           </h2>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {stats.map(({ icon: Icon, val, label, suffix }, i) => (
-            <div key={i} className="group relative p-10 rounded-[3rem] bg-white/5 border border-white/10 transition-all hover:bg-white/10 hover:-translate-y-2">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-brand-gold/20 transition-transform group-hover:scale-110">
-                <Icon size={32} className="text-brand-gold-light" />
+            <div key={i} className="group relative p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] bg-white/5 border border-white/10 transition-all hover:bg-white/10 hover:-translate-y-2">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-6 bg-brand-gold/20 transition-transform group-hover:scale-110">
+                <Icon size={28} className="sm:size-32 text-brand-gold-light" />
               </div>
-              <div className="font-heading text-5xl font-black text-white mb-2">
+              <div className="font-heading text-4xl sm:text-5xl font-black text-white mb-2">
                 <Counter target={val} suffix={suffix} />
               </div>
-              <div className="text-[11px] font-black uppercase tracking-[0.2em] text-white/50">{label}</div>
+              <div className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-white/50 leading-relaxed">{label}</div>
             </div>
           ))}
         </div>

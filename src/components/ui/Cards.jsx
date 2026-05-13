@@ -37,7 +37,7 @@ export const ProgramCard = ({ icon: Icon, title, desc, delay }) => (
 export const BlogCard = ({ img, category, title, desc, onClick }) => (
   <div className="group bg-white rounded-[2.5rem] overflow-hidden shadow-soft hover:shadow-glow transition-all hover:-translate-y-2 border border-brand-emerald/5">
     <div className="h-56 bg-brand-emerald/5 relative overflow-hidden">
-      <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+      <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
       <div className="absolute inset-0 bg-brand-emerald-dark/10 group-hover:bg-transparent transition-colors duration-500" />
       <div className="absolute top-6 left-6 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-brand-emerald-dark">
         {category}
