@@ -109,13 +109,39 @@ export default function Footer({ scrollTo }) {
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em]">
-            © {currentYear} THE LIGHT OF PEACE. ALL RIGHTS RESERVED.
-          </p>
-          <div className="flex gap-8">
-            <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Privacy Policy</button>
-            <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Terms of Service</button>
+        <div className="pt-12 border-t border-white/10 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+            <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em] text-center md:text-left">
+              © {currentYear} THE LIGHT OF PEACE. ALL RIGHTS RESERVED.
+            </p>
+            <div className="flex gap-8">
+              <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Privacy Policy</button>
+              <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Terms of Service</button>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center lg:items-end gap-2 group">
+            <p className="text-white/40 text-[10px] font-black uppercase tracking-widest group-hover:text-brand-gold transition-colors">Created by Osman</p>
+            <div className="flex gap-6">
+              <a 
+                href="https://wa.me/254781764187" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/30 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40" />
+                <span className="text-[9px] font-black uppercase tracking-widest">WhatsApp</span>
+              </a>
+              <a 
+                href="https://instagram.com/osmanibrahim5181" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/30 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40" />
+                <span className="text-[9px] font-black uppercase tracking-widest">Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
