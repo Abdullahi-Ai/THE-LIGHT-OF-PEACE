@@ -1,0 +1,26 @@
+export const posts = [
+  { 
+    id: "orphans",
+    category: "Orphan Sponsorship", 
+    title: "Empowering Orphans Across Kenya", 
+    desc: "See how your continuous support is providing education, shelter, and emotional needs to over 200 children.", 
+    fullText: "Caring for orphans is deeply embedded in our faith. Providing for their education, shelter, and emotional needs is not merely an act of charity, but a profound communal responsibility. When we uplift an orphan, we uplift an entire generation. Your continued support has enabled us to sponsor over 200 children this year alone, providing them with safe homes, quality schooling, and dedicated mentorship programs.", 
+    img: "/gallery/ramadan-2.png" 
+  },
+  { 
+    id: "ramadan-impact",
+    category: "Ramadan Program", 
+    title: "Ramadan Food Distribution Success", 
+    desc: "A look at our successful food distribution campaigns that reached thousands of vulnerable families.", 
+    fullText: "Thanks to your immense generosity, our logistics team successfully packed and distributed essential food items to over 5,000 vulnerable families across the region. Every food parcel contained staples like rice, flour, cooking oil, dates, and sugar, providing immense relief to families facing economic hardship. These deliveries ensured that communities could observe their fasts with peace of mind and dignity.", 
+    img: "/gallery/ramadan-4.png" 
+  },
+  { 
+    id: "clean-water",
+    category: "Clean Water Initiative", 
+    title: "Providing Clean Water for Communities", 
+    desc: "Discover how our clean water projects are transforming lives, helping families and entire societies access safe drinking water.", 
+    fullText: "Access to clean water changes everything. A single borehole can eliminate waterborne diseases, keep children in school instead of walking miles to fetch water, and empower women to focus on their families and livelihoods. It is one of the greatest forms of Sadaqah Jariyah (continuous charity). Since we began our journey in 2023, our focus has been to work hand-in-hand with local communities to provide reliable water sources, bringing immediate relief, health, and hope to the society.", 
+    img: "/gallery/udhiya-2.png" 
+  },
+];

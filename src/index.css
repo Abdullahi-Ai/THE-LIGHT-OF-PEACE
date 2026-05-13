@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-emerald: #0d5c3a;
+    --brand-emerald-dark: #083d26;
+    --brand-gold: #c9a227;
+    --brand-gold-light: #e8c45a;
+    --brand-cream: #fdfaf3;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    @apply bg-brand-cream text-slate-900 antialiased;
+  }
+
+  body {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .gold-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-gold to-brand-gold-light font-bold;
+  }
+
+  .shadow-soft {
+    @apply shadow-[0_10px_40px_-15px_rgba(13,92,58,0.1)];
+  }
+
+  .shadow-glow {
+    @apply shadow-[0_0_50px_-12px_rgba(201,162,39,0.3)];
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-brand-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-emerald/20 rounded-full border-4 border-brand-cream hover:bg-brand-emerald/40 transition-colors;
+}
