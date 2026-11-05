@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Share2, Heart } from 'lucide-react';
+import { ArrowLeft, Share2, Heart, Check, ArrowRight } from 'lucide-react';
 import { posts } from '../data/posts';
-import { GeometricPattern } from './ui/Shared';
 
 export default function BlogPost() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
   const post = posts.find(p => p.id === id);
 
   useEffect(() => {
@@ -15,115 +15,105 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-8 pt-32">
-        <h2 className="text-3xl font-heading font-bold text-brand-emerald-dark mb-4">Story Not Found</h2>
-        <p className="text-brand-muted mb-8">The impact story you are looking for does not exist.</p>
-        <button onClick={() => navigate('/')} className="px-8 py-3 bg-brand-emerald-dark text-white rounded-full font-bold uppercase tracking-widest text-xs">
-          Return Home
+      <div className="min-h-[65vh] flex flex-col items-center justify-center text-center p-8 pt-36 bg-brand-cream">
+        <h2 className="text-2xl font-heading font-bold text-brand-emerald-dark mb-3">Story Not Found</h2>
+        <p className="text-brand-muted text-xs sm:text-sm mb-6 max-w-md">The humanitarian update you are looking for does not exist or may have been relocated.</p>
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="px-7 py-3 bg-brand-emerald text-white rounded-full font-bold uppercase tracking-wider text-xs shadow-sm"
+        >
+          Return to Homepage
         </button>
       </div>
     );
   }
 
+  const webpSrc = post.img.endsWith('.png') ? post.img.replace('.png', '.webp') : post.img;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
-    <article className="relative bg-white min-h-screen pt-24 pb-24">
-      <GeometricPattern opacity={0.03} />
-      
-      {/* Header Image Section */}
-      <div className="relative h-[40vh] sm:h-[60vh] w-full max-w-7xl mx-auto px-4 sm:px-6 mb-16 z-10">
-        <Link to="/" className="absolute top-8 left-8 z-20 flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/40 transition-colors font-bold text-xs uppercase tracking-widest">
-          <ArrowLeft size={16} /> Back
+    <article className="relative bg-brand-cream min-h-screen pt-28 pb-20">
+      {/* Header Image Hero */}
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 mb-10 z-10">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-brand-emerald/15 text-brand-emerald-dark rounded-full hover:bg-brand-emerald hover:text-white transition-colors font-bold text-xs uppercase tracking-wider mb-6 shadow-xs"
+        >
+          <ArrowLeft size={14} /> Back to Home
         </Link>
-        <div className="w-full h-full rounded-[3rem] overflow-hidden shadow-2xl relative">
-          <img src={post.img} alt={post.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-8 sm:p-16">
-            <div className="flex items-center gap-4 mb-4 text-brand-gold">
-              <span className="flex items-center gap-2 text-xs font-black uppercase tracking-widest bg-brand-emerald-dark/80 px-4 py-2 rounded-full backdrop-blur-sm text-white">
-                <Heart size={14} className="text-brand-gold" />
-                {post.category}
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-6xl font-heading font-bold text-white leading-tight max-w-4xl">
-              {post.title}
-            </h1>
+
+        <div className="w-full rounded-3xl overflow-hidden shadow-md relative aspect-[16/9] max-h-[460px] bg-brand-emerald-dark">
+          <picture>
+            <source srcSet={webpSrc} type="image/webp" />
+            <img
+              src={post.img}
+              alt={post.alt || post.title}
+              width={1200}
+              height={675}
+              className="w-full h-full object-cover"
+            />
+          </picture>
+          <div className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-brand-emerald-dark/90 backdrop-blur-md text-white font-bold text-xs uppercase tracking-wider shadow-sm">
+            {post.category}
           </div>
         </div>
       </div>
 
-      {/* Content Section */}
+      {/* Content Container */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="bg-white rounded-[3rem] p-8 sm:p-12 shadow-soft border border-brand-emerald/5 -mt-32 relative z-20">
-          <div className="prose prose-lg text-brand-muted font-medium leading-loose">
-            <p className="text-2xl text-brand-emerald-dark font-heading font-bold leading-relaxed mb-8 italic">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-brand-emerald/10">
+
+          <h1 className="font-heading text-2xl sm:text-4xl font-bold text-brand-emerald-dark mb-6 leading-tight">
+            {post.title}
+          </h1>
+
+          <div className="prose prose-lg text-brand-muted leading-relaxed font-normal mb-10 space-y-5 text-sm sm:text-base">
+            <p className="text-brand-text font-semibold text-base sm:text-lg leading-relaxed">
               {post.desc}
             </p>
             <p>
               {post.fullText}
             </p>
-            
-            <div className="my-12 p-8 bg-brand-cream rounded-3xl border border-brand-emerald/10 text-center">
-              <Heart size={32} className="mx-auto text-brand-emerald mb-4" />
-              <h3 className="text-2xl font-heading font-bold text-brand-emerald-dark mb-4">Support Our Impact</h3>
-              <p className="text-sm font-medium text-brand-muted mb-6">
-                Your continued generosity makes stories like these possible. Help us reach more communities in need.
-              </p>
-              <Link to="/#donations" className="inline-flex items-center gap-2 px-8 py-4 bg-brand-gold text-white rounded-full font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-xl shadow-brand-gold/20">
-                Donate Now <Heart size={14} />
-              </Link>
-            </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-brand-emerald/10 flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-widest text-brand-muted">Share this story</span>
-            <div className="flex gap-3">
-              {/* WhatsApp Share */}
-              <a 
-                href={`https://wa.me/?text=${encodeURIComponent(post.title + " - Read more at: " + window.location.href)}`}
+          {/* Social Share & Direct CTA */}
+          <div className="pt-8 border-t border-brand-emerald/10 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-brand-emerald-dark uppercase tracking-wider">Share:</span>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(`${post.title} - The Light of Peace: ${window.location.href}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors"
-                title="Share on WhatsApp"
+                className="px-3 py-1.5 rounded-full bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors text-xs font-bold"
               >
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                WhatsApp Share
               </a>
-
-              {/* Facebook Share */}
-              <a 
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#1877F2]/10 flex items-center justify-center text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-colors"
-                title="Share on Facebook"
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="px-3 py-1.5 rounded-full bg-brand-cream hover:bg-brand-emerald hover:text-white text-brand-emerald-dark transition-colors text-xs font-bold flex items-center gap-1.5"
               >
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-              </a>
-
-              {/* Native / Copy Link Share */}
-              <button 
-                onClick={async () => {
-                  const shareData = {
-                    title: post.title,
-                    text: post.desc,
-                    url: window.location.href,
-                  };
-                  if (navigator.share) {
-                    try {
-                      await navigator.share(shareData);
-                    } catch (err) {
-                      console.log('Share cancelled');
-                    }
-                  } else {
-                    navigator.clipboard.writeText(window.location.href);
-                    alert('Story link copied to clipboard!');
-                  }
-                }}
-                className="w-10 h-10 rounded-full bg-brand-emerald/5 flex items-center justify-center text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
-                title="Copy Link"
-              >
-                <Share2 size={16} />
+                {copied ? <Check size={13} className="text-green-600" /> : <Share2 size={13} />}
+                <span>{copied ? "Link Copied" : "Copy Link"}</span>
               </button>
             </div>
+
+            <button
+              type="button"
+              onClick={() => navigate('/#donations')}
+              className="px-6 py-3 rounded-full bg-brand-emerald hover:bg-brand-emerald-dark text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-2 shadow-xs"
+            >
+              <Heart size={14} className="fill-white" />
+              <span>Donate to This Cause</span>
+            </button>
           </div>
+
         </div>
       </div>
     </article>

@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { Logo } from './ui/Shared';
 
 export default function Navbar({ scrollTo }) {
   const [navOpen, setNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoSize, setLogoSize] = useState(64);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      if (navOpen) setNavOpen(false);
-    };
-    
-    const handleResize = () => {
-      setLogoSize(window.innerWidth < 640 ? 54 : 64);
+      const hero = document.getElementById('home');
+      if (hero && pathname === '/') {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        setScrolled(heroBottom <= 80);
+      } else {
+        setScrolled(true);
+      }
     };
 
-    handleResize();
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [navOpen]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
   useEffect(() => {
     if (navOpen) {
@@ -38,136 +34,161 @@ export default function Navbar({ scrollTo }) {
     return () => { document.body.style.overflow = 'unset'; };
   }, [navOpen]);
 
-  const navLinks = ["Home", "About", "Programs", "Gallery", "Blog", "Volunteer", "Contact"];
+  const navLinks = [
+    { label: "Home", target: "home" },
+    { label: "About", target: "about" },
+    { label: "Programs", target: "programs" },
+    { label: "Water", target: "water" },
+    { label: "Mosques", target: "mosque" },
+    { label: "Gallery", target: "gallery" },
+    { label: "Volunteer", target: "volunteer" },
+    { label: "Contact", target: "contact" },
+  ];
 
-  const handleNavClick = (link) => {
-    const id = link.toLowerCase().replace(" ", "");
-    if (id === "gallery") {
-      navigate('/gallery');
-    } else {
-      scrollTo(id);
-    }
+  const handleNavClick = (target) => {
     setNavOpen(false);
+    if (target === "gallery" && pathname !== '/') {
+      navigate('/gallery');
+      return;
+    }
+    if (scrollTo) {
+      scrollTo(target);
+    }
   };
 
   const isHomePage = pathname === '/';
-  const showScrolledStyle = scrolled || !isHomePage;
+  const isSolid = scrolled || !isHomePage;
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          showScrolledStyle 
-            ? "bg-white shadow-glow border-b border-brand-emerald/10 py-2" 
-            : "bg-transparent py-4"
+      <nav
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
+          isSolid
+            ? "bg-white/95 backdrop-blur-md shadow-md border-b border-brand-emerald/10 py-3"
+            : "bg-[#062D1C]/85 backdrop-blur-md border-b border-white/10 py-3.5"
         }`}
+        role="navigation"
+        aria-label="Main Navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 sm:h-28 transition-all duration-500">
-            <div className="flex items-center gap-4 sm:gap-6 group cursor-pointer" onClick={() => handleNavClick("Home")}>
-              <div className="transition-transform duration-700 group-hover:rotate-[360deg]">
-                <Logo size={logoSize}/>
-              </div>
+          <div className="flex items-center justify-between">
+
+            {/* Brand Logo & Name */}
+            <div
+              className="flex items-center gap-3.5 sm:gap-4 cursor-pointer group"
+              onClick={() => handleNavClick("home")}
+            >
+              <Logo size={46} className="group-hover:scale-105 transition-transform" />
               <div className="flex flex-col">
-                <span className={`font-heading font-black text-2xl sm:text-4xl leading-[0.75] tracking-tight transition-colors drop-shadow-sm ${showScrolledStyle ? "text-brand-emerald-dark" : "text-white"}`}>
+                <span className={`font-heading font-black text-xl sm:text-2xl leading-none tracking-tight transition-colors ${
+                  isSolid ? "text-brand-emerald-dark" : "text-white"
+                }`}>
                   The Light
                 </span>
-                <span className="text-[10px] sm:text-[14px] font-black tracking-[0.55em] text-brand-gold uppercase mt-1.5 leading-none ml-0.5 drop-shadow-sm">
+                <span className="text-[10px] sm:text-[11px] font-black tracking-[0.45em] text-brand-gold uppercase mt-1 leading-none ml-0.5">
                   OF PEACE
                 </span>
               </div>
             </div>
 
+            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map(link => (
-                <button 
-                  key={link} 
-                  onClick={() => handleNavClick(link)}
-                  className={`px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all hover:bg-brand-emerald/5 ${
-                    showScrolledStyle ? "text-brand-emerald-dark" : "text-white hover:text-brand-gold-light drop-shadow-sm"
+              {navLinks.map((item) => (
+                <button
+                  key={item.target}
+                  type="button"
+                  onClick={() => handleNavClick(item.target)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${
+                    isSolid
+                      ? "text-brand-emerald-dark hover:text-brand-emerald hover:bg-brand-emerald/5"
+                      : "text-white/90 hover:text-brand-gold-light hover:bg-white/10"
                   }`}
                 >
-                  {link}
+                  {item.label}
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center gap-4">
-              <button 
-                onClick={() => handleNavClick("donations")} 
-                className={`hidden sm:flex items-center gap-2 px-8 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all hover:scale-105 hover:shadow-xl ${
-                  showScrolledStyle ? "bg-brand-emerald-dark text-white" : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 drop-shadow-sm"
+            {/* Desktop Donation Button & Mobile Menu Button */}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => handleNavClick("donations")}
+                className={`hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:scale-105 shadow-md ${
+                  isSolid
+                    ? "bg-brand-emerald text-white hover:bg-brand-emerald-dark"
+                    : "bg-brand-gold text-brand-emerald-dark hover:bg-brand-gold-light"
                 }`}
               >
-                Donate Now <ArrowRight size={14} />
+                <Heart size={14} className={isSolid ? "fill-white" : "fill-brand-emerald-dark"} />
+                <span>Donate Now</span>
               </button>
-              <button 
-                className={`lg:hidden p-3 rounded-2xl transition-all ${
-                  showScrolledStyle ? "bg-brand-emerald/5 text-brand-emerald-dark" : "bg-white/10 text-white backdrop-blur-md"
+
+              <button
+                type="button"
+                aria-label={navOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={navOpen}
+                className={`lg:hidden p-2.5 rounded-2xl transition-colors ${
+                  isSolid
+                    ? "bg-brand-emerald/5 text-brand-emerald-dark"
+                    : "bg-white/10 text-white backdrop-blur-md"
                 }`}
                 onClick={() => setNavOpen(!navOpen)}
               >
-                {navOpen ? <X size={32}/> : <Menu size={32}/>}
+                {navOpen ? <X size={26} /> : <Menu size={26} />}
               </button>
             </div>
+
           </div>
         </div>
       </nav>
 
-      <div 
-        className={`fixed inset-0 z-[60] lg:hidden transition-all duration-700 ease-in-out ${
-          navOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="absolute inset-0 bg-brand-emerald-dark" />
-        
-        <div className="relative h-full flex flex-col p-8 z-10">
-          <div className="flex items-center justify-between mb-12">
-            <div className="flex items-center gap-5">
-              <Logo size={70}/>
-              <div className="flex flex-col text-left">
-                <span className="font-heading font-black text-3xl text-white leading-[0.75] tracking-tight">The Light</span>
-                <span className="text-[12px] font-black tracking-[0.55em] text-brand-gold uppercase mt-2 ml-0.5">OF PEACE</span>
+      {/* Mobile Full Screen Menu Overlay */}
+      {navOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden bg-brand-emerald-dark/95 backdrop-blur-xl flex flex-col justify-between p-6 pt-24 text-white animate-fade-in-up">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+              <div className="flex items-center gap-3">
+                <Logo size={40} />
+                <span className="font-heading font-black text-xl text-white">The Light of Peace</span>
               </div>
-            </div>
-            <button 
-              onClick={() => setNavOpen(false)}
-              className="p-3 rounded-2xl bg-white/10 text-white transition-transform hover:scale-110 active:scale-95"
-            >
-              <X size={36}/>
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-2 overflow-y-auto pb-12">
-            {navLinks.map((link, i) => (
-              <button 
-                key={link} 
-                onClick={() => handleNavClick(link)}
-                className="group flex items-center justify-between w-full text-left px-6 py-5 rounded-[2rem] transition-all hover:bg-white/5 active:bg-white/10"
-                style={{ 
-                  animationDelay: `${i * 50}ms`,
-                  animation: navOpen ? 'fadeInUp 0.5s ease-out forwards' : 'none'
-                }}
+              <button
+                type="button"
+                onClick={() => setNavOpen(false)}
+                aria-label="Close navigation menu"
+                className="p-2 rounded-xl bg-white/10 text-white"
               >
-                <span className="text-3xl font-heading font-bold text-white group-hover:text-brand-gold transition-colors">{link}</span>
-                <ArrowRight size={24} className="text-brand-gold opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0" />
+                <X size={22} />
+              </button>
+            </div>
+
+            {navLinks.map((item) => (
+              <button
+                key={item.target}
+                type="button"
+                onClick={() => handleNavClick(item.target)}
+                className="w-full text-left py-3 px-4 rounded-xl text-sm font-bold uppercase tracking-wider text-white/90 hover:bg-white/10 hover:text-brand-gold-light transition-colors"
+              >
+                {item.label}
               </button>
             ))}
           </div>
 
-          <div className="mt-auto pt-8 border-t border-white/10">
-            <button 
-              onClick={() => handleNavClick("donations")} 
-              className="w-full py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] text-sm bg-gradient-to-r from-brand-gold to-brand-gold-light text-white shadow-2xl shadow-brand-gold/20"
+          <div className="pt-6 border-t border-white/10 space-y-3">
+            <button
+              type="button"
+              onClick={() => handleNavClick("donations")}
+              className="w-full py-4 rounded-full font-bold text-xs uppercase tracking-wider bg-brand-gold text-brand-emerald-dark flex items-center justify-center gap-2 shadow-lg"
             >
-              Make A Donation
+              <Heart size={16} className="fill-brand-emerald-dark" />
+              <span>Donate to Causes</span>
             </button>
-            <p className="text-center mt-6 text-white/40 text-[10px] font-bold uppercase tracking-widest">
-              Serving Humanity Since 2014
+            <p className="text-center text-[11px] text-white/60">
+              Mombasa, Kenya · Islamic Humanitarian Charity
             </p>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

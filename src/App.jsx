@@ -8,22 +8,30 @@ class ErrorBoundary extends Component {
     super(props);
     this.state = { hasError: false };
   }
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
   componentDidCatch(error, errorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error("The Light of Peace - Uncaught runtime error:", error, errorInfo);
   }
   render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-brand-cream flex flex-col items-center justify-center p-8 text-center">
-          <div className="w-20 h-20 bg-brand-emerald/10 rounded-3xl flex items-center justify-center mb-6">
-            <div className="text-4xl text-brand-emerald">!</div>
+          <div className="w-16 h-16 bg-brand-emerald/10 text-brand-emerald rounded-3xl flex items-center justify-center mb-6 text-3xl font-bold">
+            !
           </div>
           <h1 className="text-3xl font-heading font-bold text-brand-emerald-dark mb-4">Something went wrong</h1>
-          <p className="text-brand-muted mb-8 max-w-md">The website encountered an unexpected error. Please try refreshing the page.</p>
-          <button onClick={() => window.location.reload()} className="px-8 py-3 bg-brand-emerald-dark text-white rounded-full font-bold">Refresh Page</button>
+          <p className="text-brand-muted mb-8 max-w-md text-sm">
+            We encountered an unexpected issue. Please refresh the page to continue.
+          </p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="px-8 py-3 bg-brand-emerald text-white rounded-full font-bold text-xs uppercase tracking-wider shadow-md"
+          >
+            Refresh Page
+          </button>
         </div>
       );
     }
@@ -31,6 +39,7 @@ class ErrorBoundary extends Component {
   }
 }
 
+// Lazy-load sections with Vite code-splitting
 const Hero = lazy(() => import('./components/Hero'));
 const About = lazy(() => import('./components/About'));
 const Programs = lazy(() => import('./components/Programs'));
@@ -38,38 +47,39 @@ const ImpactStats = lazy(() => import('./components/ImpactStats'));
 const CleanWater = lazy(() => import('./components/CleanWater'));
 const MosqueConstruction = lazy(() => import('./components/MosqueConstruction'));
 const Udhhiya = lazy(() => import('./components/Udhhiya'));
-const Transparency = lazy(() => import('./components/Transparency'));
-const Donation = lazy(() => import('./components/Donation'));
-const Blog = lazy(() => import('./components/Blog'));
 const SuccessStories = lazy(() => import('./components/SuccessStories'));
+const Donation = lazy(() => import('./components/Donation'));
+const Transparency = lazy(() => import('./components/Transparency'));
+const Gallery = lazy(() => import('./components/Gallery'));
 const Partners = lazy(() => import('./components/Partners'));
 const Volunteer = lazy(() => import('./components/Volunteer'));
+const Blog = lazy(() => import('./components/Blog'));
 const FAQ = lazy(() => import('./components/FAQ'));
-const Gallery = lazy(() => import('./components/Gallery'));
 const Contact = lazy(() => import('./components/Contact'));
 const BlogPost = lazy(() => import('./components/BlogPost'));
 
-const Loading = () => (
-  <div className="fixed inset-0 bg-brand-emerald-dark flex items-center justify-center z-[100]">
-    <div className="w-12 h-12 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+const LoadingFallback = () => (
+  <div className="min-h-[50vh] flex items-center justify-center py-20 bg-brand-cream">
+    <div className="w-10 h-10 border-3 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
-const HomePage = ({ scrollTo }) => (
+const HomePage = ({ scrollTo, onOpenGallery }) => (
   <>
     <Hero scrollTo={scrollTo} />
     <About scrollTo={scrollTo} />
-    <Programs />
+    <Programs scrollTo={scrollTo} />
     <ImpactStats />
-    <CleanWater />
+    <CleanWater scrollTo={scrollTo} />
     <MosqueConstruction scrollTo={scrollTo} />
-    <Udhhiya scrollTo={scrollTo} />
-    <Transparency />
-    <Donation />
-    <Blog />
+    <Udhhiya scrollTo={scrollTo} onOpenGallery={onOpenGallery} />
     <SuccessStories />
+    <Donation />
+    <Transparency onOpenGallery={onOpenGallery} scrollTo={scrollTo} />
+    <Gallery />
     <Partners />
-    <Volunteer scrollTo={scrollTo} />
+    <Volunteer />
+    <Blog />
     <FAQ />
     <Contact />
   </>
@@ -80,34 +90,60 @@ export default function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Only scroll to top on actual route transition if not an in-page anchor
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
 
   const scrollTo = (id) => {
+    const executeScroll = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
     if (pathname !== '/') {
       navigate('/');
-      setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      // Use requestAnimationFrame for reliable execution after route change
+      requestAnimationFrame(() => {
+        setTimeout(executeScroll, 120);
+      });
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      executeScroll();
     }
   };
 
+  const handleOpenGallery = () => {
+    scrollTo("gallery");
+  };
+
   return (
-    <div className="font-sans antialiased text-brand-text bg-brand-cream overflow-x-hidden">
+    <div className="font-sans antialiased text-brand-text bg-brand-cream overflow-x-hidden min-h-screen flex flex-col justify-between selection:bg-brand-emerald selection:text-white">
       <ErrorBoundary>
         <Navbar scrollTo={scrollTo} />
-        <main>
-          <Suspense fallback={<Loading />}>
+        <main className="flex-grow">
+          <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={<HomePage scrollTo={scrollTo} />} />
-              <Route path="/gallery" element={<div className="pt-20"><Gallery /></div>} />
+              <Route path="/" element={<HomePage scrollTo={scrollTo} onOpenGallery={handleOpenGallery} />} />
+              <Route path="/about" element={<div className="pt-24"><About scrollTo={scrollTo} /></div>} />
+              <Route path="/programs" element={<div className="pt-24"><Programs scrollTo={scrollTo} /></div>} />
+              <Route path="/water" element={<div className="pt-24"><CleanWater scrollTo={scrollTo} /></div>} />
+              <Route path="/mosque" element={<div className="pt-24"><MosqueConstruction scrollTo={scrollTo} /></div>} />
+              <Route path="/udhhiya" element={<div className="pt-24"><Udhhiya scrollTo={scrollTo} onOpenGallery={handleOpenGallery} /></div>} />
+              <Route path="/donate" element={<div className="pt-24"><Donation /></div>} />
+              <Route path="/gallery" element={<div className="pt-24"><Gallery /></div>} />
+              <Route path="/volunteer" element={<div className="pt-24"><Volunteer /></div>} />
+              <Route path="/faq" element={<div className="pt-24"><FAQ /></div>} />
+              <Route path="/contact" element={<div className="pt-24"><Contact /></div>} />
               <Route path="/blog/:id" element={<BlogPost />} />
+              {/* Fallback route */}
+              <Route path="*" element={<HomePage scrollTo={scrollTo} onOpenGallery={handleOpenGallery} />} />
             </Routes>
           </Suspense>
         </main>
-        <Footer scrollTo={scrollTo} />
+        <Footer scrollTo={scrollTo} onOpenGallery={handleOpenGallery} />
       </ErrorBoundary>
     </div>
   );

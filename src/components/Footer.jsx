@@ -1,154 +1,251 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Phone, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
-import { Logo, MosqueSilhouette, GeometricPattern } from './ui/Shared';
+import React, { useState } from 'react';
+import { Phone, MapPin, Shield, X } from 'lucide-react';
+import { Logo } from './ui/Shared';
 
 export default function Footer({ scrollTo }) {
-  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
-
-  const handleLinkClick = (id) => {
-    if (id === "gallery") {
-      navigate('/gallery');
-    } else {
-      scrollTo(id);
-    }
-  };
+  const [activeModal, setActiveModal] = useState(null);
 
   return (
-    <footer className="relative bg-brand-emerald-dark text-white pt-24 overflow-hidden">
-      <GeometricPattern opacity={0.05} color="white" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 group cursor-pointer mb-2" onClick={() => handleLinkClick("home")}>
-              <Logo size={70} />
+    <footer className="relative bg-[#062d1c] text-white pt-16 sm:pt-20 pb-12 overflow-hidden border-t border-brand-emerald/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+
+          {/* Brand Column */}
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3.5 mb-5 cursor-pointer" onClick={() => scrollTo("home")}>
+              <Logo size={52} />
               <div className="flex flex-col">
-                <div className="font-heading font-black text-4xl leading-[0.75] tracking-tight">The Light</div>
-                <div className="text-[12px] font-black tracking-[0.55em] text-brand-gold uppercase mt-2.5 ml-1">OF PEACE</div>
+                <span className="font-heading font-black text-xl tracking-tight text-white leading-none">
+                  The Light
+                </span>
+                <span className="text-[10px] font-black tracking-[0.45em] text-brand-gold-light uppercase mt-1 leading-none">
+                  OF PEACE
+                </span>
               </div>
             </div>
-            <p className="text-white/60 text-sm leading-relaxed font-medium">
-              Spreading compassion and hope across Kenya through Islamic humanitarian programs and community support since 2014.
+
+            <p className="text-white/75 text-xs sm:text-sm leading-relaxed mb-5 max-w-md">
+              The Light of Peace is an Islamic humanitarian charity organization based in Mombasa, Kenya, dedicated to improving lives and supporting vulnerable communities across Kenya through compassion, faith and community development.
             </p>
-            <div className="flex gap-4">
-              {[
-                { icon: Facebook, link: "#" },
-                { icon: Instagram, link: "#" },
-                { icon: Twitter, link: "#" },
-                { icon: Youtube, link: "#" }
-              ].map((social, i) => (
-                <a key={i} href={social.link} className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-white transition-all hover:-translate-y-1">
-                  <social.icon size={18} />
-                </a>
-              ))}
+
+            <div className="flex items-center gap-2 text-xs font-semibold text-brand-gold-light">
+              <MapPin size={14} />
+              <span>Mombasa, Kenya</span>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-lg font-bold mb-8 flex items-center gap-2">
-              <div className="w-6 h-1 bg-brand-gold rounded-full" /> Quick Links
+          {/* Quick Links Column */}
+          <div className="lg:col-span-3">
+            <h4 className="text-xs font-extrabold uppercase tracking-widest text-brand-gold-light mb-5 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
+              <span>Navigation</span>
             </h4>
-            <ul className="space-y-4">
-              {["About", "Programs", "Udhhiya", "Gallery", "Blog", "Volunteer", "Donations"].map(link => (
-                <li key={link}>
-                  <button 
-                    onClick={() => handleLinkClick(link.toLowerCase())} 
-                    className="text-white/60 hover:text-brand-gold transition-colors text-sm font-bold uppercase tracking-widest flex items-center gap-2 group"
+            <ul className="space-y-2.5">
+              {[
+                { label: "About Us", target: "about" },
+                { label: "Humanitarian Programs", target: "programs" },
+                { label: "Clean Water Wells", target: "water" },
+                { label: "Mosque Projects", target: "mosque" },
+                { label: "Udhhiya / Qurbani", target: "udhhiya" },
+                { label: "Donation Portal", target: "donations" },
+                { label: "Volunteer With Us", target: "volunteer" },
+                { label: "Contact Us", target: "contact" }
+              ].map((item, i) => (
+                <li key={i}>
+                  <button
+                    type="button"
+                    onClick={() => scrollTo(item.target)}
+                    className="text-white/70 hover:text-brand-gold-light text-xs font-semibold transition-colors flex items-center gap-2 text-left"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-gold/30 group-hover:bg-brand-gold transition-colors" />
-                    {link}
+                    <span className="w-1 h-1 rounded-full bg-white/30" />
+                    <span>{item.label}</span>
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-bold mb-8 flex items-center gap-2">
-              <div className="w-6 h-1 bg-brand-gold rounded-full" /> Programs
+          {/* Contact Details Column */}
+          <div className="lg:col-span-4">
+            <h4 className="text-xs font-extrabold uppercase tracking-widest text-brand-gold-light mb-5 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
+              <span>Direct Contacts</span>
             </h4>
-            <ul className="space-y-4">
-              {["Orphan Care", "Zakat Distribution", "Food Security", "Water Boreholes", "Mosque Projects", "Education Support"].map(item => (
-                <li key={item} className="text-white/60 text-sm font-medium flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/10" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
 
-          <div>
-            <h4 className="text-lg font-bold mb-8 flex items-center gap-2">
-              <div className="w-6 h-1 bg-brand-gold rounded-full" /> Contact Info
-            </h4>
-            <div className="space-y-6">
-              {[
-                { label: "Dr. Mahmoud Edhwa", num: "+254 113 966 669" },
-                { label: "WhatsApp Support", num: "+254 721 376 922" },
-                { label: "Call Us", num: "+254 725 393 639" }
-              ].map((num, i) => (
-                <a 
-                  key={i}
-                  href={`https://wa.me/${num.num.replace(/\D/g, "")}`} 
-                  className="block group"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-brand-gold transition-colors">
-                      <Phone size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-white/40">{num.label}</p>
-                      <p className="text-sm font-bold group-hover:text-brand-gold transition-colors">{num.num}</p>
-                    </div>
+            <div className="space-y-3">
+              <a
+                href="https://wa.me/254113966669"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-brand-gold/20 flex items-center justify-center text-brand-gold-light shrink-0">
+                    <Phone size={14} />
                   </div>
-                </a>
-              ))}
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-white/50 font-bold block">Dr. Mahmoud Edhwa</span>
+                    <span className="text-xs font-bold text-white">+254 113 966 669</span>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="https://wa.me/254721376922"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
+                    <Phone size={14} />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-white/50 font-bold block">Telephone &amp; WhatsApp</span>
+                    <span className="text-xs font-bold text-white">+254 721 376 922</span>
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="tel:+254725393639"
+                className="block p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
+                    <Phone size={14} />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-white/50 font-bold block">Telephone Line</span>
+                    <span className="text-xs font-bold text-white">+254 725 393 639</span>
+                  </div>
+                </div>
+              </a>
             </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar: Copyright & Legal Modals */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60 font-medium">
+          <p>© {currentYear} The Light of Peace. Mombasa, Kenya.</p>
+
+          <div className="flex items-center gap-5">
+            <button
+              type="button"
+              onClick={() => setActiveModal('privacy')}
+              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline"
+            >
+              Website Privacy Notice
+            </button>
+            <span className="text-white/20">•</span>
+            <button
+              type="button"
+              onClick={() => setActiveModal('terms')}
+              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline"
+            >
+              Donation &amp; Website Terms
+            </button>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/10 flex flex-col lg:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
-            <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em] text-center md:text-left">
-              © {currentYear} THE LIGHT OF PEACE. ALL RIGHTS RESERVED.
-            </p>
-            <div className="flex gap-8">
-              <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Privacy Policy</button>
-              <button className="text-white/40 hover:text-brand-gold text-[10px] font-black uppercase tracking-widest transition-colors">Terms of Service</button>
-            </div>
-          </div>
+      </div>
 
-          <div className="flex flex-col items-center lg:items-end gap-2 group">
-            <p className="text-white/40 text-[10px] font-black uppercase tracking-widest group-hover:text-brand-gold transition-colors">Created by Osman</p>
-            <div className="flex gap-6">
-              <a 
-                href="https://wa.me/254781764187" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white/30 hover:text-white transition-colors flex items-center gap-2"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40" />
-                <span className="text-[9px] font-black uppercase tracking-widest">WhatsApp</span>
-              </a>
-              <a 
-                href="https://instagram.com/osmanibrahim5181" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white/30 hover:text-white transition-colors flex items-center gap-2"
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-gold/40" />
-                <span className="text-[9px] font-black uppercase tracking-widest">Instagram</span>
-              </a>
+      {/* PRIVACY NOTICE MODAL */}
+      {activeModal === 'privacy' && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveModal(null)}
+        >
+          <div
+            className="bg-white text-brand-text max-w-lg w-full rounded-3xl p-7 sm:p-8 shadow-2xl relative border border-brand-emerald/15 max-h-[85vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveModal(null)}
+              className="absolute top-6 right-6 p-2 rounded-xl bg-brand-cream text-brand-emerald-dark hover:bg-brand-emerald hover:text-white transition-colors"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <Shield size={22} className="text-brand-emerald" />
+              <h3 className="font-heading font-bold text-xl text-brand-emerald-dark">Website Privacy Notice</h3>
+            </div>
+
+            <div className="text-xs text-brand-muted leading-relaxed space-y-3 font-normal">
+              <p>
+                This notice explains how information is handled on <strong>thelightofpeace.org</strong>.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">1. Static Informational Architecture</h4>
+              <p>
+                This website is a static informational platform. We do not maintain a user account database, we do not store credit card numbers on our servers, and we do not track visitors across external websites.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">2. Contact &amp; Volunteer Inquiries</h4>
+              <p>
+                When you use the Contact or Volunteer forms, the text is pre-formatted in your browser and sent directly through WhatsApp to our direct contact number (+254 113 966 669). Any details you share are used solely to answer your questions or coordinate volunteer opportunities.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">3. Direct Donations</h4>
+              <p>
+                Donations made via Safaricom M-Pesa (Paybill 985050) or Gulf African Bank are processed through those respective regulated financial institutions. We receive standard bank/M-Pesa transaction statements for accounting and verification purposes.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">4. Contact Information</h4>
+              <p>
+                If you have questions regarding your communications with us, please reach out directly at +254 113 966 669.
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="mt-20 opacity-30 pointer-events-none">
-        <MosqueSilhouette />
-      </div>
+      {/* DONATION & WEBSITE TERMS MODAL */}
+      {activeModal === 'terms' && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActiveModal(null)}
+        >
+          <div
+            className="bg-white text-brand-text max-w-lg w-full rounded-3xl p-7 sm:p-8 shadow-2xl relative border border-brand-emerald/15 max-h-[85vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveModal(null)}
+              className="absolute top-6 right-6 p-2 rounded-xl bg-brand-cream text-brand-emerald-dark hover:bg-brand-emerald hover:text-white transition-colors"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <Shield size={22} className="text-brand-emerald" />
+              <h3 className="font-heading font-bold text-xl text-brand-emerald-dark">Donation &amp; Website Terms</h3>
+            </div>
+
+            <div className="text-xs text-brand-muted leading-relaxed space-y-3 font-normal">
+              <p>
+                By visiting <strong>https://www.thelightofpeace.org/</strong>, you agree to these operational terms:
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">1. Voluntary Charitable Contributions</h4>
+              <p>
+                All funds contributed via M-Pesa Paybill 985050 (Account: 0800066201) or Gulf African Bank are voluntary charitable contributions to support The Light of Peace's humanitarian activities in Kenya.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">2. Donor Intent &amp; Allocation</h4>
+              <p>
+                When a donor specifies a designated purpose (e.g. Clean Water, Orphan Support, Zakah, Mosque Project, Ramadan Food), funds are allocated toward that intended relief effort.
+              </p>
+              <h4 className="font-bold text-brand-emerald-dark pt-1">3. Authentic Content &amp; Media</h4>
+              <p>
+                The photographs, video updates, and official descriptions on this website represent genuine humanitarian work carried out by The Light of Peace in Kenya. Unapproved reproduction or misuse of organizational media is prohibited.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </footer>
   );
 }

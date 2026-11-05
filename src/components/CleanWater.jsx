@@ -1,53 +1,116 @@
 import React from 'react';
-import { Droplets, CheckCircle2, Waves, MapPin, Users, Heart } from 'lucide-react';
-import { GeometricPattern } from './ui/Shared';
+import { Droplets, MapPin, Users, Waves, ArrowRight } from 'lucide-react';
 
-export default function CleanWater() {
+export default function CleanWater({ scrollTo }) {
+  const boreholeSteps = [
+    { step: "01", title: "Site Assessment", desc: "Identifying community locations with acute, long-term drinking water needs." },
+    { step: "02", title: "Borehole Drilling", desc: "Drilling through ground strata to reach natural groundwater aquifers." },
+    { step: "03", title: "Pumping & Storage", desc: "Installing reliable pumping systems and elevated hygienic water tanks." },
+    { step: "04", title: "Community Distribution", desc: "Constructing accessible communal tap stands for local families and livestock." },
+  ];
+
   return (
-    <section id="water" className="relative py-24 overflow-hidden bg-brand-cream">
-      <GeometricPattern opacity={0.05}/>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 bg-brand-emerald/10 border border-brand-emerald/20">
+    <section
+      id="water"
+      className="relative py-20 sm:py-28 scroll-mt-20 sm:scroll-mt-24 overflow-hidden bg-brand-cream border-t border-brand-emerald/5"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+          {/* Left Column: Context & The Gift of Water */}
+          <div className="lg:col-span-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5 bg-brand-emerald/10 border border-brand-emerald/20">
               <Droplets size={14} className="text-brand-emerald" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-brand-emerald">Clean Water Initiative</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-brand-emerald">
+                Clean Water Initiative
+              </span>
             </div>
-            <h2 className="font-heading text-4xl sm:text-5xl mb-6 text-brand-emerald-dark leading-tight">
-              Giving the <span className="gold-text">Gift of Life</span>
+
+            <h2 className="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold mb-6 text-brand-emerald-dark leading-tight">
+              Giving the <span className="gold-text-dark">Gift of Life</span> Through Sustainable Boreholes
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed mb-8 text-brand-muted font-medium">
-              Water is a fundamental right. We build sustainable boreholes and water systems that provide entire communities with access to safe, clean drinking water for decades to come.
+
+            <p className="text-base sm:text-lg leading-relaxed mb-6 text-brand-text/90 font-medium">
+              Water is the foundation of human survival and an ongoing charity (<em>Sadaqah Jariyah</em>). In drought-prone regions in Kenya, women and children frequently walk long distances each day searching for water.
             </p>
-            <div className="grid sm:grid-cols-2 gap-6 mb-10">
-              {[
-                { icon: MapPin, val: "3+", label: "Communities Reached" },
-                { icon: Users, val: "1k+", label: "Families Served" },
-              ].map((item, i) => (
-                <div key={i} className="p-6 rounded-3xl bg-white shadow-soft border border-brand-emerald/5">
-                  <item.icon size={24} className="text-brand-gold mb-3" />
-                  <div className="text-3xl font-black text-brand-emerald-dark mb-1">{item.val}</div>
-                  <div className="text-[10px] uppercase tracking-widest font-bold text-brand-muted">{item.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-brand-gold/10 rounded-[3rem] blur-xl group-hover:bg-brand-gold/20 transition-all" />
-            <div className="relative rounded-[3rem] overflow-hidden shadow-2xl bg-brand-emerald-dark aspect-square flex flex-col items-center justify-center p-12 text-center text-white">
-              <GeometricPattern opacity={0.15} color="white" />
-              <div className="relative z-10">
-                <div className="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center mb-8 mx-auto animate-pulse">
-                  <Waves size={48} className="text-brand-gold-light" />
-                </div>
-                <h3 className="text-3xl font-heading font-bold mb-4">Sustainable Boreholes</h3>
-                <p className="text-white/60 mb-8 font-medium">We specialize in building deep-well borehole systems that provide permanent clean water access to drought-affected regions across East Africa.</p>
-                <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-brand-gold text-white font-black uppercase tracking-widest text-[10px]">
-                  <Droplets size={14} /> Support Clean Water
-                </div>
+
+            <p className="text-xs sm:text-sm leading-relaxed mb-8 text-brand-muted">
+              The Light of Peace facilitates borehole construction and community water points designed to supply rural communities, schools, and local residents with accessible drinking water.
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              <div className="p-4 rounded-2xl bg-white border border-brand-emerald/10 shadow-xs">
+                <MapPin size={20} className="text-brand-gold-dark mb-1.5" />
+                <div className="text-base font-bold text-brand-emerald-dark">Targeted Need</div>
+                <div className="text-xs text-brand-muted mt-0.5">Rural communities facing water scarcity</div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white border border-brand-emerald/10 shadow-xs">
+                <Users size={20} className="text-brand-emerald mb-1.5" />
+                <div className="text-base font-bold text-brand-emerald-dark">Sadaqah Jariyah</div>
+                <div className="text-xs text-brand-muted mt-0.5">Continuous charitable reward for donors</div>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => scrollTo ? scrollTo("donations") : null}
+              className="px-7 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.02] bg-brand-emerald text-white hover:bg-brand-emerald-dark shadow-md flex items-center gap-2"
+            >
+              <span>Support Clean Water Projects</span>
+              <ArrowRight size={15} />
+            </button>
           </div>
+
+          {/* Right Column: Borehole Engineering Architecture */}
+          <div className="lg:col-span-6">
+            <div className="rounded-3xl p-8 sm:p-10 bg-white border border-brand-emerald/15 shadow-xl relative">
+              <div className="flex items-center justify-between pb-6 mb-6 border-b border-brand-emerald/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-brand-emerald/10 flex items-center justify-center text-brand-emerald">
+                    <Waves size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg text-brand-emerald-dark">
+                      Borehole Setup Stages
+                    </h3>
+                    <p className="text-xs text-brand-muted">Steps involved in community water provision</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step Sequence */}
+              <div className="space-y-4 mb-6">
+                {boreholeSteps.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-4 p-3.5 rounded-xl bg-brand-cream/60 border border-brand-emerald/5">
+                    <span className="font-heading font-extrabold text-sm text-brand-gold-dark shrink-0 pt-0.5">
+                      {item.step}
+                    </span>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-brand-emerald-dark">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-brand-muted leading-relaxed mt-0.5">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Islamic Quote Callout */}
+              <div className="p-4 rounded-xl bg-brand-emerald-dark text-white text-xs leading-relaxed">
+                <p className="italic text-brand-gold-light mb-1">
+                  "The best charity is to give water to drink."
+                </p>
+                <p className="text-white/70 text-[11px]">
+                  Prophetic Hadith (Sunan an-Nasa'i). Providing clean drinking water is a blessed continuous charity.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

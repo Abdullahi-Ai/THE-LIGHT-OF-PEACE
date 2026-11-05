@@ -1,77 +1,152 @@
-import React, { useMemo } from 'react';
-import { Heart, Baby, Utensils, Star, Globe, Gift, Moon } from 'lucide-react';
-import { GeometricPattern, MosqueSilhouette } from './ui/Shared';
+import React from 'react';
+import { Heart, ArrowRight, MapPin, CheckCircle2 } from 'lucide-react';
 
 export default function Hero({ scrollTo }) {
-  const stars = useMemo(() => [...Array(30)].map((_, i) => ({
-    width: Math.random() * 3 + 1,
-    height: Math.random() * 3 + 1,
-    opacity: Math.random() * 0.6 + 0.2,
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 60}%`,
-    duration: 3 + Math.random() * 4,
-    delay: Math.random() * 3
-  })), []);
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-brand-emerald-dark via-brand-emerald to-brand-emerald-light">
-      <GeometricPattern opacity={0.08} color="#e8c45a" />
+    <header
+      id="home"
+      className="relative overflow-hidden bg-gradient-to-br from-[#062D1C] via-[#0B5D3B] to-[#073D26] text-white pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 lg:pb-24 border-b border-white/10"
+    >
+      {/* Subtle Atmospheric Lighting (Constrained to prevent mobile sub-pixel overflow) */}
+      <div
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-full w-[600px] h-[400px] bg-brand-gold/10 blur-[130px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-16 -right-16 max-w-full w-[450px] h-[450px] bg-brand-emerald-light/20 blur-[140px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
 
-      {stars.map((star, i) => (
-        <div key={i} className="absolute rounded-full bg-brand-gold-light animate-pulse pointer-events-none" style={{
-          width: star.width, height: star.height,
-          opacity: star.opacity,
-          left: star.left, top: star.top,
-          animation: `float ${star.duration}s ease-in-out infinite`,
-          animationDelay: `${star.delay}s`
-        }} />
-      ))}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-      <div className="absolute top-28 right-16 opacity-20 hidden md:block pointer-events-none">
-        <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="50" fill="#e8c45a" />
-          <circle cx="85" cy="45" r="42" fill="#0d5c3a" />
-        </svg>
-      </div>
+          {/* Left Column: Authoritative Editorial Messaging */}
+          <div className="lg:col-span-7 flex flex-col items-start">
 
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <MosqueSilhouette />
-      </div>
+            {/* Location & Organization Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-xs">
+              <MapPin size={13} className="text-brand-gold-light shrink-0" />
+              <span className="text-xs font-semibold tracking-wide text-white/95">
+                Mombasa, Kenya · Islamic Humanitarian Charity
+              </span>
+            </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-40">
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 bg-brand-gold/20 border border-brand-gold/40 animate-fade-in-up">
-            <Moon size={14} className="text-brand-gold-light" />
-            <span className="text-sm font-bold text-brand-gold-light">Islamic Humanitarian Organization · Kenya</span>
+            {/* Master Headline */}
+            <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.14] mb-6">
+              Bringing Hope, <br />
+              <span className="gold-text">Peace &amp; Support</span> <br />
+              to Communities
+            </h1>
+
+            {/* Editorial Mission Statement */}
+            <p className="text-base sm:text-lg text-white/85 max-w-2xl leading-relaxed font-normal mb-8">
+              The Light of Peace is an Islamic humanitarian charity organization based in Mombasa, Kenya, dedicated to supporting orphans, providing food relief to families in need, drilling clean water boreholes, and assisting community development through faith and compassion.
+            </p>
+
+            {/* Call to Actions */}
+            <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={() => scrollTo("donations")}
+                className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] hover:shadow-xl bg-gradient-to-r from-brand-gold via-brand-gold-light to-brand-gold text-brand-emerald-dark shadow-lg shadow-brand-gold/25 flex items-center justify-center gap-2.5"
+              >
+                <Heart size={16} className="fill-brand-emerald-dark" />
+                <span>Donate to Our Programs</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => scrollTo("programs")}
+                className="w-full sm:w-auto px-7 py-4 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 hover:bg-white/15 bg-white/10 border border-white/25 text-white backdrop-blur-sm flex items-center justify-center gap-2"
+              >
+                <span>Explore Programs</span>
+                <ArrowRight size={15} />
+              </button>
+            </div>
+
+            {/* Program Anchors */}
+            <div className="pt-6 border-t border-white/15 w-full grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium text-white/80">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="text-brand-gold-light shrink-0" />
+                <span>Orphan Support</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="text-brand-gold-light shrink-0" />
+                <span>Clean Water Boreholes</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="text-brand-gold-light shrink-0" />
+                <span>Food &amp; Relief Support</span>
+              </div>
+            </div>
+
           </div>
 
-          <h1 className="font-heading text-5xl sm:text-6xl lg:text-8xl text-white mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            Bringing Hope,<br />
-            <span className="gold-text">Peace & Support</span><br />
-            to Communities
-          </h1>
+          {/* Right Column: Genuine Photographic Showcase */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
 
-          <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            Supporting orphans, empowering the youth against drug abuse, feeding vulnerable families and spreading compassion through dedicated Islamic humanitarian programs.
-          </p>
+              {/* Main Authentic Field Photograph Card */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/20 bg-brand-emerald-dark group">
+                <picture className="block w-full">
+                  <source srcSet="/gallery/ramadan-1.webp" type="image/webp" />
+                  <img
+                    src="/gallery/ramadan-1.png"
+                    alt="The Light of Peace humanitarian food relief packages staging and distribution in Kenya"
+                    width={640}
+                    height={480}
+                    className="w-full h-80 sm:h-96 object-cover object-center group-hover:scale-105 transition-transform duration-700 block"
+                    loading="eager"
+                  />
+                </picture>
 
-          <div className="flex flex-wrap gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
-            <button
-              onClick={() => scrollTo("donations")}
-              className="px-8 py-4 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-2xl bg-gradient-to-r from-brand-gold to-brand-gold-light text-white shadow-brand-gold/40 shadow-lg"
-            >
-              🤲 Donate Now
-            </button>
-            <button
-              onClick={() => scrollTo("programs")}
-              className="px-8 py-4 rounded-full font-bold text-base transition-all hover:scale-105 hover:bg-white/20 bg-white/10 border-2 border-white/40 text-white"
-            >
-              Explore Programs →
-            </button>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-brand-emerald-dark/90 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold tracking-wide flex items-center gap-1.5 shadow-md">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
+                  <span>Food Distribution Staging · Kenya</span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <p className="font-heading font-bold text-base sm:text-lg leading-snug mb-1">
+                    Direct Community Food Relief
+                  </p>
+                  <p className="text-xs text-white/80 leading-relaxed line-clamp-2">
+                    Delivering essential food staples and relief hampers directly to vulnerable families in Kenya.
+                  </p>
+                </div>
+              </div>
+
+              {/* Supporting Secondary Card (Placed neatly below without covering caption) */}
+              <div className="mt-4 sm:mt-5 relative z-20 rounded-2xl bg-white text-brand-emerald-dark p-4 shadow-xl border border-brand-emerald/10 flex items-center gap-3.5">
+                <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-brand-gold/30 bg-brand-emerald-dark">
+                  <picture className="block w-full h-full">
+                    <source srcSet="/gallery/udhiya-1.webp" type="image/webp" />
+                    <img
+                      src="/gallery/udhiya-1.png"
+                      alt="Udhhiya community preparations"
+                      width={100}
+                      height={100}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </picture>
+                </div>
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-gold-dark block">
+                    Verified Field Records
+                  </span>
+                  <p className="text-xs font-bold text-brand-emerald-dark leading-snug">
+                    Original photographs &amp; video documentation from ground operations in Kenya
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
         </div>
       </div>
-    </section>
+    </header>
   );
 }

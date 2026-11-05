@@ -1,0 +1,6 @@
+# Robots.txt for The Light of Peace (Mombasa, Kenya)
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://www.thelightofpeace.org/sitemap.xml
