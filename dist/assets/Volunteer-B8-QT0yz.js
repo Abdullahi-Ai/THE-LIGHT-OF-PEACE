@@ -1,4 +1,4 @@
-import{j as e}from"./index-CtJGfgVf.js";import{r as l}from"./vendor-IXtEYa7t.js";import{d as b,C as u,r as p,s as h}from"./ui-ig_1gOsI.js";function v(){const[i,s]=l.useState(!1),[t,a]=l.useState({name:"",phone:"",role:"Food Distribution & Logistics",location:"Mombasa"}),[m,o]=l.useState(!1),d=["Food Distribution & Logistics","Quran & Arabic Teaching","Youth Mentorship & Drug Awareness","Media & Photography","Coordination & Volunteer Support","Community Outreach"],x=r=>{r.preventDefault();const n=`*Volunteer Inquiry - The Light of Peace*
+import{j as e}from"./index-CPUJYAXJ.js";import{r as l}from"./vendor-IXtEYa7t.js";import{d as b,C as u,r as p,s as h}from"./ui-ig_1gOsI.js";function v(){const[i,s]=l.useState(!1),[t,a]=l.useState({name:"",phone:"",role:"Food Distribution & Logistics",location:"Mombasa"}),[m,o]=l.useState(!1),d=["Food Distribution & Logistics","Quran & Arabic Teaching","Youth Mentorship & Drug Awareness","Media & Photography","Coordination & Volunteer Support","Community Outreach"],x=r=>{r.preventDefault();const n=`*Volunteer Inquiry - The Light of Peace*
 
 *Name:* ${t.name}
 *Phone:* ${t.phone}

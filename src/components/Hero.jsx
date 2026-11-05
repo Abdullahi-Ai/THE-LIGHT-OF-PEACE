@@ -13,7 +13,7 @@ export default function Hero({ scrollTo }) {
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-16 -right-16 max-w-full w-[450px] h-[450px] bg-brand-emerald-light/20 blur-[140px] rounded-full pointer-events-none"
+        className="absolute -bottom-16 right-0 max-w-full w-[450px] h-[450px] bg-brand-emerald-light/20 blur-[140px] rounded-full pointer-events-none"
         aria-hidden="true"
       />
 

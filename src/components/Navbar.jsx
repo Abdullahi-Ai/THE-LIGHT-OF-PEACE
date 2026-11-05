@@ -9,6 +9,7 @@ export default function Navbar({ scrollTo }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  // Scroll detection for navbar background transition (emerald -> white)
   useEffect(() => {
     const handleScroll = () => {
       const hero = document.getElementById('home');
@@ -25,14 +26,46 @@ export default function Navbar({ scrollTo }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
+  // Automatically close mobile menu on scroll, touch-drag, resize, or escape key
   useEffect(() => {
-    if (navOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
+    if (!navOpen) return;
+
+    // Immediately close menu as soon as visitor starts scrolling or dragging
+    const handleDismissOnInteraction = () => {
+      setNavOpen(false);
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setNavOpen(false);
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setNavOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleDismissOnInteraction, { passive: true });
+    window.addEventListener('touchmove', handleDismissOnInteraction, { passive: true });
+    window.addEventListener('wheel', handleDismissOnInteraction, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('scroll', handleDismissOnInteraction);
+      window.removeEventListener('touchmove', handleDismissOnInteraction);
+      window.removeEventListener('wheel', handleDismissOnInteraction);
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [navOpen]);
+
+  // Ensure menu is closed on route navigation or path change
+  useEffect(() => {
+    setNavOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { label: "Home", target: "home" },
@@ -143,52 +176,69 @@ export default function Navbar({ scrollTo }) {
         </div>
       </nav>
 
-      {/* Mobile Full Screen Menu Overlay */}
-      {navOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden bg-brand-emerald-dark/95 backdrop-blur-xl flex flex-col justify-between p-6 pt-24 text-white animate-fade-in-up">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-              <div className="flex items-center gap-3">
-                <Logo size={40} />
-                <span className="font-heading font-black text-xl text-white">The Light of Peace</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setNavOpen(false)}
-                aria-label="Close navigation menu"
-                className="p-2 rounded-xl bg-white/10 text-white"
-              >
-                <X size={22} />
-              </button>
-            </div>
+      {/* Mobile Backdrop Overlay - closes menu on tap outside */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
+          navOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setNavOpen(false)}
+        aria-hidden="true"
+      />
 
+      {/* Mobile Navigation Dropdown Drawer (Sleek, Non-Obstructive, Auto-Closing) */}
+      <div
+        id="mobile-navigation"
+        className={`fixed top-[62px] sm:top-[70px] left-0 right-0 z-40 lg:hidden transition-all duration-300 ease-in-out transform ${
+          navOpen
+            ? "translate-y-0 opacity-100 pointer-events-auto shadow-2xl"
+            : "-translate-y-4 opacity-0 pointer-events-none"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation Menu"
+      >
+        <div className="bg-[#062D1C] border-b border-white/10 px-4 sm:px-6 pt-3 pb-6 max-h-[calc(100vh-80px)] overflow-y-auto">
+          {/* Section Navigation Grid */}
+          <div className="grid grid-cols-2 gap-2 mb-4">
             {navLinks.map((item) => (
               <button
                 key={item.target}
                 type="button"
                 onClick={() => handleNavClick(item.target)}
-                className="w-full text-left py-3 px-4 rounded-xl text-sm font-bold uppercase tracking-wider text-white/90 hover:bg-white/10 hover:text-brand-gold-light transition-colors"
+                className="flex items-center justify-between py-3 px-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white/95 bg-white/5 hover:bg-white/10 active:bg-white/15 hover:text-brand-gold-light border border-white/10 transition-colors text-left"
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span className="text-brand-gold-light/60 text-[11px] font-normal">→</span>
               </button>
             ))}
           </div>
 
-          <div className="pt-6 border-t border-white/10 space-y-3">
+          {/* Quick Action: Donate & Direct Contact */}
+          <div className="pt-3 border-t border-white/10 space-y-2.5">
             <button
               type="button"
               onClick={() => handleNavClick("donations")}
-              className="w-full py-4 rounded-full font-bold text-xs uppercase tracking-wider bg-brand-gold text-brand-emerald-dark flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-brand-gold via-brand-gold-light to-brand-gold text-brand-emerald-dark flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-transform"
             >
-              <Heart size={16} className="fill-brand-emerald-dark" />
-              <span>Donate to Causes</span>
+              <Heart size={15} className="fill-brand-emerald-dark" />
+              <span>Donate to Our Causes</span>
             </button>
-            <p className="text-center text-[11px] text-white/60">
-              Mombasa, Kenya · Islamic Humanitarian Charity
-            </p>
+
+            <div className="flex items-center justify-between text-[11px] text-white/70 px-1 pt-1">
+              <span>Mombasa, Kenya</span>
+              <a
+                href="https://wa.me/254721376922"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-gold-light hover:underline font-semibold"
+                onClick={() => setNavOpen(false)}
+              >
+                WhatsApp: +254 721 376 922
+              </a>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
