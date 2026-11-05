@@ -81,7 +81,7 @@ export default function MosqueConstruction({ scrollTo }) {
                     type="button"
                     onClick={() => setActiveVideo(vid)}
                     aria-label={`Play video update: ${vid.title}`}
-                    className="absolute w-13 h-13 rounded-full bg-white/95 backdrop-blur-md text-brand-emerald flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-brand-emerald-dark transition-all duration-300"
+                    className="absolute w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-md text-brand-emerald flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-brand-gold group-hover:text-brand-emerald-dark transition-all duration-300"
                   >
                     <Play size={20} className="ml-0.5 fill-current" />
                   </button>
@@ -105,7 +105,7 @@ export default function MosqueConstruction({ scrollTo }) {
                 <button
                   type="button"
                   onClick={() => setActiveVideo(vid)}
-                  className="w-full py-2.5 rounded-xl bg-white border border-brand-emerald/20 hover:bg-brand-emerald hover:text-white text-brand-emerald-dark font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 min-h-[44px] rounded-xl bg-white border border-brand-emerald/20 hover:bg-brand-emerald hover:text-white text-brand-emerald-dark font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
                 >
                   <Play size={14} className="fill-current" />
                   <span>Watch Video Update</span>
@@ -151,7 +151,7 @@ export default function MosqueConstruction({ scrollTo }) {
               type="button"
               onClick={() => setActiveVideo(null)}
               aria-label="Close video player"
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
+              className="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
             >
               <X size={20} />
             </button>

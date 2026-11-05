@@ -85,7 +85,7 @@ export default function Contact() {
               return (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-brand-cream border border-brand-emerald/10 flex items-start justify-between gap-4"
+                  className="p-5 rounded-2xl bg-brand-cream border border-brand-emerald/10 flex flex-col sm:flex-row sm:items-start justify-between gap-4"
                 >
                   <div className="flex items-start gap-3.5">
                     <div className="w-10 h-10 rounded-xl bg-white border border-brand-emerald/15 flex items-center justify-center text-brand-emerald shrink-0 mt-0.5">
@@ -108,7 +108,7 @@ export default function Contact() {
                     href={item.action}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 px-3 py-1.5 rounded-lg bg-white border border-brand-emerald/20 text-[11px] font-bold text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
+                    className="self-start sm:self-auto shrink-0 px-3.5 py-2.5 min-h-[44px] inline-flex items-center justify-center rounded-lg bg-white border border-brand-emerald/20 text-xs font-bold text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
                   >
                     {item.actionText}
                   </a>

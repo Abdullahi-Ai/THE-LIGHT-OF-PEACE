@@ -76,7 +76,7 @@ export default function Donation() {
                     key={cause}
                     type="button"
                     onClick={() => setSelectedCause(cause)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    className={`px-3.5 py-2.5 min-h-[44px] inline-flex items-center justify-center rounded-full text-xs font-semibold transition-all ${
                       selectedCause === cause
                         ? 'bg-brand-emerald text-white shadow-xs'
                         : 'bg-brand-cream text-brand-text hover:bg-brand-emerald/10'
@@ -141,7 +141,7 @@ export default function Donation() {
                     type="button"
                     onClick={() => handleCopy("985050", "paybill")}
                     aria-label="Copy M-Pesa Business Number"
-                    className="p-2.5 rounded-xl bg-white border border-brand-emerald/20 text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
+                    className="p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center bg-white border border-brand-emerald/20 text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
                   >
                     {copiedPaybill ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
                   </button>
@@ -156,7 +156,7 @@ export default function Donation() {
                     type="button"
                     onClick={() => handleCopy("0800066201", "account")}
                     aria-label="Copy M-Pesa Account Number"
-                    className="p-2.5 rounded-xl bg-white border border-brand-emerald/20 text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
+                    className="p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center bg-white border border-brand-emerald/20 text-brand-emerald hover:bg-brand-emerald hover:text-white transition-colors"
                   >
                     {copiedAccount ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
                   </button>
@@ -194,7 +194,7 @@ export default function Donation() {
                   type="button"
                   onClick={() => handleCopy("0800066201", "bank")}
                   aria-label="Copy Bank Account Number"
-                  className="px-3.5 py-2 rounded-xl bg-brand-cream border border-brand-emerald/20 text-xs font-bold text-brand-emerald-dark hover:bg-brand-emerald hover:text-white transition-colors flex items-center gap-1.5"
+                  className="px-3.5 py-2.5 min-h-[44px] rounded-xl bg-brand-cream border border-brand-emerald/20 text-xs font-bold text-brand-emerald-dark hover:bg-brand-emerald hover:text-white transition-colors flex items-center gap-1.5"
                 >
                   {copiedBank ? <Check size={14} className="text-green-600" /> : <Copy size={14} />}
                   <span>{copiedBank ? "Copied" : "Copy Account"}</span>

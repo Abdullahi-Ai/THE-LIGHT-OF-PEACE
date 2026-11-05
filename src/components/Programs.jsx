@@ -131,7 +131,7 @@ export default function Programs({ scrollTo }) {
                   <button
                     type="button"
                     onClick={() => scrollTo ? scrollTo("gallery") : null}
-                    className="text-xs font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-emerald-dark transition-colors"
+                    className="min-h-[44px] inline-flex items-center text-xs font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-emerald-dark transition-colors px-2 -mx-2"
                   >
                     View Field Photos
                   </button>
@@ -225,7 +225,7 @@ export default function Programs({ scrollTo }) {
                 <button
                   type="button"
                   onClick={() => scrollTo ? scrollTo("udhhiya") : null}
-                  className="self-start inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-gold-dark transition-colors pt-2"
+                  className="self-start inline-flex items-center gap-2 min-h-[44px] text-xs font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-gold-dark transition-colors px-2 -mx-2"
                 >
                   <span>View Qurbani Details</span>
                   <ArrowRight size={14} />
@@ -273,7 +273,7 @@ export default function Programs({ scrollTo }) {
                   <button
                     type="button"
                     onClick={() => scrollTo ? scrollTo(prog.target) : null}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-gold-dark transition-colors self-start"
+                    className="inline-flex items-center gap-1.5 min-h-[44px] text-[11px] font-bold uppercase tracking-wider text-brand-emerald hover:text-brand-gold-dark transition-colors self-start px-2 -mx-2"
                   >
                     <span>{prog.actionLabel}</span>
                     <ArrowRight size={12} />

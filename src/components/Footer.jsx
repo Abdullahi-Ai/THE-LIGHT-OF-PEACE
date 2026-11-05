@@ -58,7 +58,7 @@ export default function Footer({ scrollTo }) {
                   <button
                     type="button"
                     onClick={() => scrollTo(item.target)}
-                    className="text-white/70 hover:text-brand-gold-light text-xs font-semibold transition-colors flex items-center gap-2 text-left"
+                    className="text-white/70 hover:text-brand-gold-light text-xs font-semibold transition-colors flex items-center gap-2 text-left py-1"
                   >
                     <span className="w-1 h-1 rounded-full bg-white/30" />
                     <span>{item.label}</span>
@@ -137,7 +137,7 @@ export default function Footer({ scrollTo }) {
             <button
               type="button"
               onClick={() => setActiveModal('privacy')}
-              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline"
+              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline py-2"
             >
               Website Privacy Notice
             </button>
@@ -145,7 +145,7 @@ export default function Footer({ scrollTo }) {
             <button
               type="button"
               onClick={() => setActiveModal('terms')}
-              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline"
+              className="hover:text-brand-gold-light transition-colors underline-offset-4 hover:underline py-2"
             >
               Donation &amp; Website Terms
             </button>

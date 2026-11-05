@@ -149,7 +149,7 @@ export default function Gallery() {
               key={cat.id}
               type="button"
               onClick={() => setActiveFilter(cat.id)}
-              className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 border ${
+              className={`px-4 py-2.5 min-h-[44px] inline-flex items-center justify-center rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 border ${
                 activeFilter === cat.id
                   ? 'bg-brand-emerald text-white border-brand-emerald shadow-sm'
                   : 'bg-brand-cream text-brand-emerald-dark border-brand-emerald/10 hover:bg-brand-emerald/5'
@@ -247,7 +247,7 @@ export default function Gallery() {
               type="button"
               onClick={() => setActiveMedia(null)}
               aria-label="Close media view"
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
+              className="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/20 hover:bg-white text-white hover:text-black flex items-center justify-center transition-colors"
             >
               <X size={20} />
             </button>
