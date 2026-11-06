@@ -136,42 +136,47 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
+                      <label htmlFor="contact-name" className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
                         Your Name
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
+                        aria-required="true"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Brother Omar"
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-white"
+                        className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
+                      <label htmlFor="contact-email" className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
                         Your Email
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         required
+                        aria-required="true"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. omar@example.com"
-                        className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-white"
+                        className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-white"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
+                    <label htmlFor="contact-subject" className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
                       Subject
                     </label>
                     <select
+                      id="contact-subject"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-white"
                     >
                       <option value="General Inquiry">General Inquiry</option>
                       <option value="Water Borehole Sponsorship">Water Borehole Sponsorship</option>
@@ -182,22 +187,24 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
+                    <label htmlFor="contact-message" className="block text-xs font-bold text-brand-emerald-dark mb-1.5">
                       Your Message
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       required
+                      aria-required="true"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Write your question or request here..."
-                      className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-white"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="px-8 py-3.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald-dark text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.01] flex items-center justify-center gap-2 shadow-xs"
+                    className="px-8 py-3.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald-dark text-white font-bold text-xs uppercase tracking-wider transition-all hover:scale-[1.01] flex items-center justify-center gap-2 shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-gold"
                   >
                     <Send size={15} />
                     <span>Send Message on WhatsApp</span>

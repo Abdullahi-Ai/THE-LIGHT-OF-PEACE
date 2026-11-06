@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# Canonical Host
+Host: https://www.thelightofpeace.org
+
 # Sitemap Index
 Sitemap: https://www.thelightofpeace.org/sitemap.xml

@@ -101,35 +101,40 @@ export default function Volunteer() {
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-brand-emerald-dark mb-1">Your Full Name</label>
+                  <label htmlFor="volunteer-name" className="block text-xs font-bold text-brand-emerald-dark mb-1">Your Full Name</label>
                   <input
+                    id="volunteer-name"
                     type="text"
                     required
+                    aria-required="true"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Fatima Ali"
-                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-brand-cream/50"
+                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-brand-cream/50"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-brand-emerald-dark mb-1">Phone / WhatsApp Number</label>
+                  <label htmlFor="volunteer-phone" className="block text-xs font-bold text-brand-emerald-dark mb-1">Phone / WhatsApp Number</label>
                   <input
+                    id="volunteer-phone"
                     type="tel"
                     required
+                    aria-required="true"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="e.g. +254 712 345 678"
-                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-brand-cream/50"
+                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-brand-cream/50"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-brand-emerald-dark mb-1">Preferred Role</label>
+                  <label htmlFor="volunteer-role" className="block text-xs font-bold text-brand-emerald-dark mb-1">Preferred Role</label>
                   <select
+                    id="volunteer-role"
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-brand-cream/50"
+                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-brand-cream/50"
                   >
                     {roles.map((r, idx) => (
                       <option key={idx} value={r}>{r}</option>
@@ -138,20 +143,22 @@ export default function Volunteer() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-brand-emerald-dark mb-1">Your Location in Kenya</label>
+                  <label htmlFor="volunteer-location" className="block text-xs font-bold text-brand-emerald-dark mb-1">Your Location in Kenya</label>
                   <input
+                    id="volunteer-location"
                     type="text"
                     required
+                    aria-required="true"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="e.g. Mombasa, Kilifi, Nairobi"
-                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none text-xs bg-brand-cream/50"
+                    className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-brand-cream/50"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald-dark text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-2 shadow-xs"
+                  className="w-full py-3.5 rounded-xl bg-brand-emerald hover:bg-brand-emerald-dark text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-2 shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-gold"
                 >
                   <Send size={15} />
                   <span>Submit via WhatsApp</span>

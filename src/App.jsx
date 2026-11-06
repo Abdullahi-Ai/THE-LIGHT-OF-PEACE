@@ -2,6 +2,7 @@ import React, { useEffect, Suspense, lazy, Component } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Hero from './components/Hero';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -39,8 +40,7 @@ class ErrorBoundary extends Component {
   }
 }
 
-// Lazy-load sections with Vite code-splitting
-const Hero = lazy(() => import('./components/Hero'));
+// Lazy-load below-the-fold sections with Vite code-splitting
 const About = lazy(() => import('./components/About'));
 const Programs = lazy(() => import('./components/Programs'));
 const ImpactStats = lazy(() => import('./components/ImpactStats'));
@@ -121,9 +121,15 @@ export default function App() {
 
   return (
     <div className="font-sans antialiased text-brand-text bg-brand-cream overflow-x-hidden min-h-screen flex flex-col justify-between selection:bg-brand-emerald selection:text-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-brand-emerald focus:text-white focus:rounded-xl focus:shadow-xl focus:font-bold focus:text-xs focus:uppercase focus:tracking-wider focus:outline-none focus:ring-2 focus:ring-brand-gold"
+      >
+        Skip to main content
+      </a>
       <ErrorBoundary>
         <Navbar scrollTo={scrollTo} />
-        <main className="flex-grow">
+        <main id="main-content" tabIndex="-1" className="flex-grow focus:outline-none">
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<HomePage scrollTo={scrollTo} onOpenGallery={handleOpenGallery} />} />

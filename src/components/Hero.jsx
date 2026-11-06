@@ -97,6 +97,7 @@ export default function Hero({ scrollTo }) {
                     height={480}
                     className="w-full h-80 sm:h-96 object-cover object-center group-hover:scale-105 transition-transform duration-700 block"
                     loading="eager"
+                    fetchPriority="high"
                   />
                 </picture>
 
