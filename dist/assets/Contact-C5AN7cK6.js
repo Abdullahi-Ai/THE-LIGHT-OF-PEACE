@@ -1,4 +1,4 @@
-import{j as e}from"./index-C7Vbx_JN.js";import{r as l}from"./vendor-CRM-7Pc1.js";import{r as d,a as u,P as i,C as b,s as h}from"./ui-CekxRTL0.js";function j(){const[c,o]=l.useState("idle"),[r,t]=l.useState({name:"",email:"",subject:"General Inquiry",message:""}),m=a=>{a.preventDefault();const s=`*Website Inquiry - The Light of Peace*
+import{j as e}from"./index-Cr0eURF3.js";import{r as l}from"./vendor-CRM-7Pc1.js";import{r as d,a as u,P as i,C as b,s as h}from"./ui-K3hZhd0H.js";function j(){const[c,o]=l.useState("idle"),[r,t]=l.useState({name:"",email:"",subject:"General Inquiry",message:""}),m=a=>{a.preventDefault();const s=`*Website Inquiry - The Light of Peace*
 
 *Name:* ${r.name}
 *Email:* ${r.email}

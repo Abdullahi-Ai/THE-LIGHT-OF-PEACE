@@ -57,6 +57,7 @@ const Blog = lazy(() => import('./components/Blog'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const Contact = lazy(() => import('./components/Contact'));
 const BlogPost = lazy(() => import('./components/BlogPost'));
+const AboutOrganization = lazy(() => import('./components/AboutOrganization'));
 
 const LoadingFallback = () => (
   <div className="min-h-[50vh] flex items-center justify-center py-20 bg-brand-cream">
@@ -134,6 +135,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage scrollTo={scrollTo} onOpenGallery={handleOpenGallery} />} />
               <Route path="/about" element={<div className="pt-24"><About scrollTo={scrollTo} /></div>} />
+              <Route path="/about-the-organization" element={<AboutOrganization scrollTo={scrollTo} />} />
+              <Route path="/about-the-organization/" element={<AboutOrganization scrollTo={scrollTo} />} />
               <Route path="/programs" element={<div className="pt-24"><Programs scrollTo={scrollTo} /></div>} />
               <Route path="/water" element={<div className="pt-24"><CleanWater scrollTo={scrollTo} /></div>} />
               <Route path="/mosque" element={<div className="pt-24"><MosqueConstruction scrollTo={scrollTo} /></div>} />

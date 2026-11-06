@@ -27,7 +27,7 @@ export default function Hero({ scrollTo }) {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-xs">
               <MapPin size={13} className="text-brand-gold-light shrink-0" />
               <span className="text-xs font-semibold tracking-wide text-white/95">
-                Mombasa, Kenya · Islamic Humanitarian Charity
+                The Light of Peace Organization · Mombasa, Kenya
               </span>
             </div>
 
@@ -40,7 +40,7 @@ export default function Hero({ scrollTo }) {
 
             {/* Editorial Mission Statement */}
             <p className="text-base sm:text-lg text-white/85 max-w-2xl leading-relaxed font-normal mb-8">
-              The Light of Peace is an Islamic humanitarian charity organization based in Mombasa, Kenya, dedicated to supporting orphans, providing food relief to families in need, drilling clean water boreholes, and assisting community development through faith and compassion.
+              The Light of Peace is an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water boreholes, orphan support, food distribution, mosque construction, and community empowerment through faith and compassion.
             </p>
 
             {/* Call to Actions */}

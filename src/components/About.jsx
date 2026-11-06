@@ -1,5 +1,6 @@
 import React from 'react';
-import { MapPin, ArrowRight, HeartHandshake } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, ArrowRight, HeartHandshake, Building2 } from 'lucide-react';
 
 export default function About({ scrollTo }) {
   const focusPillars = [
@@ -87,7 +88,7 @@ export default function About({ scrollTo }) {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5 bg-brand-emerald/10 border border-brand-emerald/20">
               <HeartHandshake size={14} className="text-brand-emerald" />
               <span className="text-xs font-bold uppercase tracking-widest text-brand-emerald">
-                About The Light of Peace
+                About The Light of Peace Organization
               </span>
             </div>
 
@@ -98,7 +99,7 @@ export default function About({ scrollTo }) {
             {/* Approved Editorial Narrative */}
             <div className="text-brand-muted text-sm sm:text-base leading-relaxed space-y-4 mb-8">
               <p className="text-brand-text font-semibold leading-relaxed">
-                The Light of Peace is an Islamic humanitarian charity organization based in Mombasa, Kenya, dedicated to improving lives and supporting vulnerable communities through compassion, faith and community development.
+                The Light of Peace Organization is an Islamic humanitarian charity based in Mombasa, Kenya, dedicated to improving lives and supporting vulnerable communities through compassion, faith and community development.
               </p>
               <p>
                 The organization works to support orphans, empower vulnerable youth through education and drug abuse prevention initiatives, assist new Muslim converts, provide food to disadvantaged families, distribute Zakah, promote Quran and Arabic education, and support sustainable clean water and mosque construction projects.
@@ -145,6 +146,13 @@ export default function About({ scrollTo }) {
               >
                 <span>Support Our Causes</span>
               </button>
+              <Link
+                to="/about-the-organization"
+                className="px-7 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all hover:bg-brand-emerald/10 bg-brand-emerald/5 border border-brand-emerald/20 text-brand-emerald-dark flex items-center gap-2"
+              >
+                <Building2 size={15} className="text-brand-emerald" />
+                <span>Organization Profile &amp; Facts</span>
+              </Link>
             </div>
 
           </div>

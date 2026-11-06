@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Light of Peace | Islamic Charity &amp; Humanitarian Organization in Mombasa, Kenya</title>
-    <meta name="description" content="Discover The Light of Peace, an Islamic humanitarian charity organization based in Mombasa, Kenya, supporting orphans, vulnerable families, youth empowerment, Islamic education, food distribution and clean water projects." />
+    <title>The Light of Peace Organization | Mombasa, Kenya</title>
+    <meta name="description" content="Discover The Light of Peace, an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water, orphan support, food distribution, mosque construction and community empowerment." />
     <link rel="canonical" href="https://www.thelightofpeace.org/" />
 
     <!-- Favicon & Mobile Icons -->
@@ -17,10 +17,10 @@
     <link rel="preload" as="image" href="/logo.webp" type="image/webp" />
 
     <!-- Open Graph Metadata -->
-    <meta property="og:site_name" content="The Light of Peace" />
+    <meta property="og:site_name" content="The Light of Peace Organization" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="The Light of Peace | Islamic Charity &amp; Humanitarian Organization in Mombasa, Kenya" />
-    <meta property="og:description" content="Discover The Light of Peace, an Islamic humanitarian charity organization based in Mombasa, Kenya, supporting orphans, vulnerable families, youth empowerment, Islamic education, food distribution and clean water projects." />
+    <meta property="og:title" content="The Light of Peace Organization | Mombasa, Kenya" />
+    <meta property="og:description" content="Discover The Light of Peace, an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water, orphan support, food distribution, mosque construction and community empowerment." />
     <meta property="og:url" content="https://www.thelightofpeace.org/" />
     <meta property="og:image" content="https://www.thelightofpeace.org/gallery/ramadan-1.png" />
     <meta property="og:image:width" content="1200" />
@@ -31,8 +31,8 @@
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="The Light of Peace | Islamic Charity &amp; Humanitarian Organization in Mombasa, Kenya" />
-    <meta name="twitter:description" content="Discover The Light of Peace, an Islamic humanitarian charity organization based in Mombasa, Kenya, supporting orphans, vulnerable families, youth empowerment, Islamic education, food distribution and clean water projects." />
+    <meta name="twitter:title" content="The Light of Peace Organization | Mombasa, Kenya" />
+    <meta name="twitter:description" content="Discover The Light of Peace, an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water, orphan support, food distribution, mosque construction and community empowerment." />
     <meta name="twitter:image" content="https://www.thelightofpeace.org/gallery/ramadan-1.png" />
     <meta name="twitter:image:alt" content="The Light of Peace humanitarian relief staging in Kenya" />
 
@@ -41,59 +41,99 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Structured Data: JSON-LD for NGO -->
+    <!-- Structured Data: Connected Entity Graph for Organization Disambiguation -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": ["NGO", "NonprofitOrganization"],
-      "name": "The Light of Peace",
-      "legalName": "The Light of Peace Humanitarian Organization",
-      "alternateName": "TLOP Kenya",
-      "url": "https://www.thelightofpeace.org/",
-      "logo": "https://www.thelightofpeace.org/logo.png",
-      "image": "https://www.thelightofpeace.org/gallery/ramadan-1.png",
-      "description": "The Light of Peace is an Islamic humanitarian charity organization based in Mombasa, Kenya, dedicated to improving lives and supporting vulnerable communities through compassion, faith and community development.",
-      "slogan": "Bringing Hope, Peace & Support to Communities",
-      "knowsAbout": [
-        "Clean Water Boreholes",
-        "Orphan Support & Care",
-        "Ramadan Food Distribution",
-        "Mosque Construction",
-        "Zakat & Sadaqah Distribution",
-        "Udhhiya Qurbani",
-        "Youth Empowerment"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Mombasa",
-        "addressRegion": "Coast Province",
-        "addressCountry": "KE"
-      },
-      "areaServed": {
-        "@type": "Country",
-        "name": "Kenya"
-      },
-      "contactPoint": [
+      "@graph": [
         {
-          "@type": "ContactPoint",
-          "telephone": "+254113966669",
-          "contactType": "general inquiries & donations",
-          "availableLanguage": ["English", "Swahili", "Arabic"]
+          "@type": ["NGO", "NonprofitOrganization", "Organization"],
+          "@id": "https://www.thelightofpeace.org/#organization",
+          "name": "The Light of Peace",
+          "alternateName": [
+            "The Light of Peace Organization"
+          ],
+          "url": "https://www.thelightofpeace.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://www.thelightofpeace.org/#logo",
+            "url": "https://www.thelightofpeace.org/logo.png",
+            "contentUrl": "https://www.thelightofpeace.org/logo.png",
+            "caption": "The Light of Peace Official Organization Logo"
+          },
+          "image": "https://www.thelightofpeace.org/gallery/ramadan-1.png",
+          "description": "The Light of Peace is an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water, orphan support, food distribution, mosque construction and community empowerment.",
+          "disambiguatingDescription": "An Islamic humanitarian charity and community development organization based in Mombasa, Kenya (distinct from artworks, paintings, or commercial publications).",
+          "slogan": "Bringing Hope, Peace & Support to Communities",
+          "knowsAbout": [
+            "Clean Water Boreholes",
+            "Orphan Support & Care",
+            "Ramadan Food Distribution",
+            "Mosque Construction",
+            "Zakat & Sadaqah Distribution",
+            "Udhhiya Qurbani",
+            "Youth Empowerment"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Mombasa",
+            "addressCountry": "KE"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Kenya"
+          },
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+254113966669",
+              "contactType": "general inquiries & donations",
+              "availableLanguage": ["English", "Swahili", "Arabic"]
+            },
+            {
+              "@type": "ContactPoint",
+              "telephone": "+254721376922",
+              "contactType": "community coordination",
+              "availableLanguage": ["English", "Swahili"]
+            }
+          ],
+          "potentialAction": {
+            "@type": "DonateAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.thelightofpeace.org/donate"
+            }
+          }
         },
         {
-          "@type": "ContactPoint",
-          "telephone": "+254721376922",
-          "contactType": "community coordination",
-          "availableLanguage": ["English", "Swahili"]
+          "@type": "WebSite",
+          "@id": "https://www.thelightofpeace.org/#website",
+          "url": "https://www.thelightofpeace.org/",
+          "name": "The Light of Peace Organization",
+          "alternateName": "The Light of Peace Official Website",
+          "description": "Official website of The Light of Peace Organization in Mombasa, Kenya.",
+          "publisher": {
+            "@id": "https://www.thelightofpeace.org/#organization"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://www.thelightofpeace.org/#webpage",
+          "url": "https://www.thelightofpeace.org/",
+          "name": "The Light of Peace Organization | Mombasa, Kenya",
+          "isPartOf": {
+            "@id": "https://www.thelightofpeace.org/#website"
+          },
+          "about": {
+            "@id": "https://www.thelightofpeace.org/#organization"
+          },
+          "primaryImageOfPage": {
+            "@id": "https://www.thelightofpeace.org/#logo"
+          },
+          "description": "Discover The Light of Peace, an organization based in Mombasa, Kenya, working through humanitarian initiatives including clean water, orphan support, food distribution, mosque construction and community empowerment."
         }
-      ],
-      "potentialAction": {
-        "@type": "DonateAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://www.thelightofpeace.org/donate"
-        }
-      }
+      ]
     }
     </script>
   </head>

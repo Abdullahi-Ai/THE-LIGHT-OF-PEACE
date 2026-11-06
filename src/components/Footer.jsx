@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Shield, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Phone, MapPin, Shield, X, ExternalLink } from 'lucide-react';
 import { Logo } from './ui/Shared';
 
 export default function Footer({ scrollTo }) {
   const currentYear = new Date().getFullYear();
   const [activeModal, setActiveModal] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <footer className="relative bg-[#062d1c] text-white pt-16 sm:pt-20 pb-12 overflow-hidden border-t border-brand-emerald/20">
@@ -46,6 +48,7 @@ export default function Footer({ scrollTo }) {
             <ul className="space-y-2.5">
               {[
                 { label: "About Us", target: "about" },
+                { label: "Organization Profile", path: "/about-the-organization" },
                 { label: "Humanitarian Programs", target: "programs" },
                 { label: "Clean Water Wells", target: "water" },
                 { label: "Mosque Projects", target: "mosque" },
@@ -57,7 +60,13 @@ export default function Footer({ scrollTo }) {
                 <li key={i}>
                   <button
                     type="button"
-                    onClick={() => scrollTo(item.target)}
+                    onClick={() => {
+                      if (item.path) {
+                        navigate(item.path);
+                      } else if (scrollTo) {
+                        scrollTo(item.target);
+                      }
+                    }}
                     className="text-white/70 hover:text-brand-gold-light text-xs font-semibold transition-colors flex items-center gap-2 text-left py-1"
                   >
                     <span className="w-1 h-1 rounded-full bg-white/30" />
