@@ -1,1 +1,41 @@
+# Dependencies
 node_modules
+/.pnp
+.pnp.js
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.id_rsa
+*.id_ed25519
+
+# Vercel & Hosting
+.vercel
+
+# Testing & Coverage
+/coverage
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor & OS Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.sublime-workspace
+.idea/
+
+# Local Scratch & Diagnostics
+*.local

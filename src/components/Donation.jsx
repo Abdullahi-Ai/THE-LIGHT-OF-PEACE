@@ -27,16 +27,23 @@ export default function Donation() {
   ];
 
   const handleCopy = (text, type) => {
-    navigator.clipboard.writeText(text);
-    if (type === 'paybill') {
-      setCopiedPaybill(true);
-      setTimeout(() => setCopiedPaybill(false), 2500);
-    } else if (type === 'account') {
-      setCopiedAccount(true);
-      setTimeout(() => setCopiedAccount(false), 2500);
-    } else if (type === 'bank') {
-      setCopiedBank(true);
-      setTimeout(() => setCopiedBank(false), 2500);
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          if (type === 'paybill') {
+            setCopiedPaybill(true);
+            setTimeout(() => setCopiedPaybill(false), 2500);
+          } else if (type === 'account') {
+            setCopiedAccount(true);
+            setTimeout(() => setCopiedAccount(false), 2500);
+          } else if (type === 'bank') {
+            setCopiedBank(true);
+            setTimeout(() => setCopiedBank(false), 2500);
+          }
+        })
+        .catch((err) => {
+          console.warn("Clipboard access denied or unavailable:", err);
+        });
     }
   };
 

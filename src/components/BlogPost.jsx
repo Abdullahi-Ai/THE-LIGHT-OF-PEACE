@@ -32,9 +32,16 @@ export default function BlogPost() {
   const webpSrc = post.img.endsWith('.png') ? post.img.replace('.png', '.webp') : post.img;
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2500);
+        })
+        .catch((err) => {
+          console.warn("Clipboard access denied or unavailable:", err);
+        });
+    }
   };
 
   return (

@@ -3,17 +3,51 @@ import { MapPin, Phone, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [formState, setFormState] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
+
+  const allowedSubjects = [
+    'General Inquiry',
+    'Water Borehole Sponsorship',
+    'Mosque Construction Contribution',
+    'Orphan Support Sponsoring',
+    'Volunteer Coordination'
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formatted = `*Website Inquiry - The Light of Peace*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Subject:* ${formData.subject}\n\n*Message:*\n${formData.message}`;
+    setErrorMessage('');
+
+    // Input Sanitization & Validation
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+    const selectedSubject = allowedSubjects.includes(formData.subject) ? formData.subject : 'General Inquiry';
+
+    if (trimmedName.length < 2 || trimmedName.length > 100) {
+      setErrorMessage('Please provide a valid name (2 to 100 characters).');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail) || trimmedEmail.length > 120) {
+      setErrorMessage('Please provide a valid email address.');
+      return;
+    }
+
+    if (trimmedMessage.length < 5 || trimmedMessage.length > 1500) {
+      setErrorMessage('Please provide a message between 5 and 1,500 characters.');
+      return;
+    }
+
+    const formatted = `*Website Inquiry - The Light of Peace*\n\n*Name:* ${trimmedName}\n*Email:* ${trimmedEmail}\n*Subject:* ${selectedSubject}\n\n*Message:*\n${trimmedMessage}`;
     const whatsappUrl = `https://wa.me/254113966669?text=${encodeURIComponent(formatted)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     setFormState('success');
     setTimeout(() => {
       setFormState('idle');
       setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+      setErrorMessage('');
     }, 5000);
   };
 
@@ -144,6 +178,7 @@ export default function Contact() {
                         type="text"
                         required
                         aria-required="true"
+                        maxLength={100}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Brother Omar"
@@ -160,6 +195,7 @@ export default function Contact() {
                         type="email"
                         required
                         aria-required="true"
+                        maxLength={120}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. omar@example.com"
@@ -195,12 +231,19 @@ export default function Contact() {
                       rows={4}
                       required
                       aria-required="true"
+                      maxLength={1500}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Write your question or request here..."
                       className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-white"
                     />
                   </div>
+
+                  {errorMessage && (
+                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+                      {errorMessage}
+                    </div>
+                  )}
 
                   <button
                     type="submit"

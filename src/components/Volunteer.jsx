@@ -3,6 +3,7 @@ import { Users, CheckCircle2, Send, MessageSquare } from 'lucide-react';
 
 export default function Volunteer() {
   const [showForm, setShowForm] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -22,14 +23,38 @@ export default function Volunteer() {
 
   const handleVolunteerSubmit = (e) => {
     e.preventDefault();
-    const text = `*Volunteer Inquiry - The Light of Peace*\n\n*Name:* ${formData.name}\n*Phone:* ${formData.phone}\n*Area of Interest:* ${formData.role}\n*Location:* ${formData.location}\n\nAssalamu Alaikum. I would like to volunteer and support your community humanitarian work in Kenya.`;
+    setErrorMessage('');
+
+    const trimmedName = formData.name.trim();
+    const trimmedPhone = formData.phone.trim();
+    const trimmedLocation = formData.location.trim();
+    const selectedRole = roles.includes(formData.role) ? formData.role : roles[0];
+
+    if (trimmedName.length < 2 || trimmedName.length > 100) {
+      setErrorMessage('Please provide a valid full name (2 to 100 characters).');
+      return;
+    }
+
+    const phoneRegex = /^[+]?[\d\s-]{6,30}$/;
+    if (!phoneRegex.test(trimmedPhone)) {
+      setErrorMessage('Please provide a valid phone or WhatsApp number.');
+      return;
+    }
+
+    if (trimmedLocation.length < 2 || trimmedLocation.length > 100) {
+      setErrorMessage('Please provide your location in Kenya (2 to 100 characters).');
+      return;
+    }
+
+    const text = `*Volunteer Inquiry - The Light of Peace*\n\n*Name:* ${trimmedName}\n*Phone:* ${trimmedPhone}\n*Area of Interest:* ${selectedRole}\n*Location:* ${trimmedLocation}\n\nAssalamu Alaikum. I would like to volunteer and support your community humanitarian work in Kenya.`;
     const url = `https://wa.me/254113966669?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+    window.open(url, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
       setShowForm(false);
       setFormData({ name: '', phone: '', role: 'Food Distribution & Logistics', location: 'Mombasa' });
+      setErrorMessage('');
     }, 5000);
   };
 
@@ -107,6 +132,7 @@ export default function Volunteer() {
                     type="text"
                     required
                     aria-required="true"
+                    maxLength={100}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Fatima Ali"
@@ -121,6 +147,7 @@ export default function Volunteer() {
                     type="tel"
                     required
                     aria-required="true"
+                    maxLength={30}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="e.g. +254 712 345 678"
@@ -149,12 +176,19 @@ export default function Volunteer() {
                     type="text"
                     required
                     aria-required="true"
+                    maxLength={100}
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="e.g. Mombasa, Kilifi, Nairobi"
                     className="w-full px-4 py-2.5 rounded-xl border border-brand-emerald/20 focus:border-brand-emerald focus:outline-none focus:ring-2 focus:ring-brand-emerald/20 text-xs bg-brand-cream/50"
                   />
                 </div>
+
+                {errorMessage && (
+                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
+                    {errorMessage}
+                  </div>
+                )}
 
                 <button
                   type="submit"
